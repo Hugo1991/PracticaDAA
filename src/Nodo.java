@@ -1,84 +1,58 @@
 
-import java.util.*;
+public class Nodo {
+	private int beneficio;
+	private int beneficioO;
+	private int paso;
+	private int[] PastelerosAsignados;
+	private int[][] TablaBenecifios;
 
-public class Nodo
- {
-	private ArrayList<Integer> asignaciones ;
-    private Integer costeAsignaciones;
-    private ArrayList<Integer> pastelerosSinAsignar;
-    private Integer ultimoPasterleroAsignado;
-    private Integer cotaInferior;
-    private ArrayList<Boolean> pedidosHechos;
-    private ArrayList<Integer> valoresElegidosCotaInf;
-
-	public void setCosteAsignaciones(Integer costeAsignaciones)
-	{
-		this.costeAsignaciones = costeAsignaciones;
+	public int getBeneficio() {
+		return beneficio;
 	}
 
-	public Integer getCosteAsignaciones()
-	{
-		return costeAsignaciones;
+	public void setBeneficio(int beneficio) {
+		this.beneficio = beneficio;
 	}
 
-	public void setValoresElegidosCotaInf(ArrayList<Integer> valoresElegidosCotaInf)
-	{
-		this.valoresElegidosCotaInf = valoresElegidosCotaInf;
+	public int getBeneficioO() {
+		return beneficioO;
 	}
 
-	public ArrayList<Integer> getValoresElegidosCotaInf()
-	{
-		return valoresElegidosCotaInf;
+	public void setBeneficioO(int beneficioO) {
+		this.beneficioO = beneficioO;
 	}
 
-	public void setPedidosHechos(ArrayList<Boolean> pedidosHechos)
-	{
-		this.pedidosHechos = pedidosHechos;
+	public int getPaso() {
+		return paso;
 	}
 
-	public ArrayList<Boolean> getPedidosHechos()
-	{
-		return pedidosHechos;
+	public void setPaso(int paso) {
+		this.paso = paso;
 	}
 
-	public void setCotaInferior(Integer cotaInferior)
-	{
-		this.cotaInferior = cotaInferior;
+	public int[] getPastelerosAsignados() {
+		return PastelerosAsignados;
 	}
 
-	public Integer getCotaInferior()
-	{
-		return cotaInferior;
+	public void setPastelerosAsignados(int[] pastelerosAsignados) {
+		PastelerosAsignados = pastelerosAsignados;
 	}
 
-	public void setUltimoPasterleroAsignado(Integer ultimoPasterleroAsignado)
-	{
-		this.ultimoPasterleroAsignado = ultimoPasterleroAsignado;
+	public int[][] getTablaBenecifios() {
+		return TablaBenecifios;
 	}
 
-	public Integer getUltimoPasterleroAsignado()
-	{
-		return ultimoPasterleroAsignado;
+	public void setTablaBenecifios(int[][] tablaBenecifios) {
+		TablaBenecifios = tablaBenecifios;
 	}
 
-	public void setPastelerosSinAsignar(ArrayList<Integer> pastelerosSinAsignar)
-	{
-		this.pastelerosSinAsignar = pastelerosSinAsignar;
+	public Nodo(int beneficio, int beneficioO, int paso, int[] pastelerosAsignados, int[][] tablaBenecifios) {
+		super();
+		this.beneficio = beneficio;
+		this.beneficioO = beneficioO;
+		this.paso = paso;
+		PastelerosAsignados = pastelerosAsignados;
+		TablaBenecifios = tablaBenecifios;
 	}
 
-	public ArrayList<Integer> getPastelerosSinAsignar()
-	{
-		return pastelerosSinAsignar;
-	}
-    
-
-
-	public void setAsignaciones(ArrayList<Integer> asignaciones)
-	{
-		this.asignaciones = asignaciones;
-	}
-
-	public ArrayList<Integer> getAsignaciones()
-	{
-		return asignaciones;
-	}}
+}
