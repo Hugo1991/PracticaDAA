@@ -4,7 +4,7 @@ public class Nodo {
 	private int beneficioO;
 	private int paso;
 	private int[] PastelerosAsignados;
-	private int[][] TablaBenecifios;
+	private int[][] TablaBeneficios;
 
 	public int getBeneficio() {
 		return beneficio;
@@ -38,21 +38,21 @@ public class Nodo {
 		PastelerosAsignados = pastelerosAsignados;
 	}
 
-	public int[][] getTablaBenecifios() {
-		return TablaBenecifios;
+	public int[][] getTablaBeneficios() {
+		return TablaBeneficios;
 	}
 
-	public void setTablaBenecifios(int[][] tablaBenecifios) {
-		TablaBenecifios = tablaBenecifios;
+	public void setTablaBenecifios(int[][] tablaBeneficios) {
+		TablaBeneficios = tablaBeneficios;
 	}
 
-	public Nodo(int beneficio, int beneficioO, int paso, int[] pastelerosAsignados, int[][] tablaBenecifios) {
+	public Nodo(int beneficio, int beneficioO, int paso, int[] pastelerosAsignados, int[][] tablaBeneficios) {
 		super();
 		this.beneficio = beneficio;
 		this.beneficioO = beneficioO;
 		this.paso = paso;
 		PastelerosAsignados = pastelerosAsignados;
-		TablaBenecifios = tablaBenecifios;
+		TablaBeneficios = tablaBeneficios;
 	}
 
 }
