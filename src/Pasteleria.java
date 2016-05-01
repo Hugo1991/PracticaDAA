@@ -18,8 +18,6 @@ public class Pasteleria {
 			numPasteles = Fichero.getNumPasteles();
 			pastelero_pastel = Fichero.getPastelero_pastel();
 			pedido = Fichero.getPedido();
-			// TODO llamar a la funcion ramifica y poda y ver que parametros
-			// se le pasa
 			RamificaYPoda.RamificaYPoda(new Nodo(pastelero_pastel));
 			if (args.length == 1) {
 				System.out.println(numPasteleros);
