@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,63 +13,65 @@ public class Fichero {
 	private static int[][] pastelero_pastel;
 	private static int[] pedido;
 
-	public void leerFichero(String ficheroEntrada){
+	public static void leerFichero(String ficheroEntrada) {
 		FileReader f;
 		try {
 			f = new FileReader(ficheroEntrada);
-		
-		BufferedReader b = new BufferedReader(f);
-		String linea = b.readLine();
-		String[] datosNum = linea.split(" ");
-		numPasteleros = Integer.parseInt(datosNum[0]);
-		numPasteles = Integer.parseInt(datosNum[1]);
-		pastelero_pastel = new int[numPasteleros][numPasteles];
-		pedido = new int[numPasteleros];
-		int[][] coste = new int[numPasteleros][numPasteles];
-		for (int i = 0; i < numPasteleros; i++) {
+			BufferedReader b = new BufferedReader(f);
+			String linea = b.readLine();
+			String[] datosNum = linea.split(" ");
+			numPasteleros = Integer.parseInt(datosNum[0]);
+			numPasteles = Integer.parseInt(datosNum[1]);
+			pastelero_pastel = new int[numPasteleros][numPasteles];
+			pedido = new int[numPasteleros];
+			int[][] coste = new int[numPasteleros][numPasteles];
+			for (int i = 0; i < numPasteleros; i++) {
+				linea = b.readLine();
+				String[] datosMatriz = linea.split("\\s+");
+				for (int j = 0; j < numPasteles; j++)
+					pastelero_pastel[i][j] = Integer.parseInt(datosMatriz[j]);
+			}
 			linea = b.readLine();
-			String[] datosMatriz = linea.split("\\s+");
-			for (int j = 0; j < numPasteles; j++)
-				pastelero_pastel[i][j] = Integer.parseInt(datosMatriz[j]);
-		}
-		linea = b.readLine();
-		String[] datosPedido = linea.split("\\s+");
-		for (int i = 0; i < numPasteleros; i++)
-			pedido[i] = Integer.parseInt(datosPedido[i]);
+			String[] datosPedido = linea.split("\\s+");
+			for (int i = 0; i < numPasteleros; i++)
+				pedido[i] = Integer.parseInt(datosPedido[i]);
 
-		for (int i = 0; i < numPasteleros; i++)
-			for (int j = 0; j < numPasteles; j++)
-				coste[i][j] = pastelero_pastel[i][pedido[j] - 1];
-		b.close();
+			for (int i = 0; i < numPasteleros; i++)
+				for (int j = 0; j < numPasteles; j++)
+					coste[i][j] = pastelero_pastel[i][pedido[j] - 1];
+			b.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("El fichero no existe");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	public void escribirFichero(int[] ListaSolucion, int CotaInferior, String nombreFicheroSalida){
+
+	public static void escribirFichero(int[] pedido, String nombreFicheroSalida) {
 		try {
-			PrintWriter aux = new PrintWriter(new BufferedWriter(new FileWriter(nombreFicheroSalida)));
-			for (int i = 1; i <= ListaSolucion.length; i++) {
-				int j = 0;
-				while ((j < ListaSolucion.length) && (ListaSolucion[j] != i)) {
-					j++;
+			if (!new File(nombreFicheroSalida).exists()) {
+				PrintWriter aux = new PrintWriter(new BufferedWriter(new FileWriter(nombreFicheroSalida)));
+				for (int i = 1; i <= pedido.length; i++) {
+					int j = 0;
+					while ((j < pedido.length) && (pedido[j] != i)) {
+						j++;
+					}
+					aux.print((j + 1) + ",");
+					System.out.println(j + 1);
 				}
-				aux.print((j + 1) + ",");
-				System.out.println(j + 1);
+				aux.println();
+				aux.close();
+			} else {
+				System.out.println("El fichero ya existe");
 			}
-			aux.println();
-			aux.println(CotaInferior);
-			System.out.println(CotaInferior);
-			aux.close();
 		} catch (IOException ioEx) {
 			ioEx.printStackTrace();
 		}
 	}
-	public int getNumPasteleros() {
+
+	public static int getNumPasteleros() {
 		return numPasteleros;
 	}
 
@@ -76,7 +79,7 @@ public class Fichero {
 		this.numPasteleros = numPasteleros;
 	}
 
-	public int getNumPasteles() {
+	public static int getNumPasteles() {
 		return numPasteles;
 	}
 
@@ -84,7 +87,7 @@ public class Fichero {
 		this.numPasteles = numPasteles;
 	}
 
-	public int[][] getPastelero_pastel() {
+	public static int[][] getPastelero_pastel() {
 		return pastelero_pastel;
 	}
 
@@ -92,7 +95,7 @@ public class Fichero {
 		this.pastelero_pastel = pastelero_pastel;
 	}
 
-	public int[] getPedido() {
+	public static int[] getPedido() {
 		return pedido;
 	}
 
