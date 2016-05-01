@@ -1,58 +1,50 @@
+import java.util.ArrayList;
 
 public class Nodo {
-	private int beneficio;
-	private int beneficioO;
-	private int paso;
-	private int[] PastelerosAsignados;
-	private int[][] TablaBeneficios;
-
-	public int getBeneficio() {
-		return beneficio;
+	private ArrayList<Integer> pastelerosAsignados;
+	private int cotaSuperior;
+	private ArrayList<Integer> tareasSinAsignar;
+	private int[][] costes;
+	private int costeReal;
+	public Nodo(ArrayList<Integer> pastelerosAsignados, int cotaSuperior, ArrayList<Integer> tareasSinAsignar,
+			int[][] costes, int costeReal) {
+		this.pastelerosAsignados = pastelerosAsignados;
+		this.cotaSuperior = cotaSuperior;
+		this.tareasSinAsignar = tareasSinAsignar;
+		this.costes = costes;
+		this.costeReal = costeReal;
 	}
-
-	public void setBeneficio(int beneficio) {
-		this.beneficio = beneficio;
+	public ArrayList<Integer> getPastelerosAsignados() {
+		return pastelerosAsignados;
 	}
-
-	public int getBeneficioO() {
-		return beneficioO;
+	public void setPastelerosAsignados(ArrayList<Integer> pastelerosAsignados) {
+		this.pastelerosAsignados = pastelerosAsignados;
 	}
-
-	public void setBeneficioO(int beneficioO) {
-		this.beneficioO = beneficioO;
+	public int getCotaSuperior() {
+		return cotaSuperior;
 	}
-
-	public int getPaso() {
-		return paso;
+	public void setCotaSuperior(int cotaSuperior) {
+		this.cotaSuperior = cotaSuperior;
 	}
-
-	public void setPaso(int paso) {
-		this.paso = paso;
+	public ArrayList<Integer> getTareasSinAsignar() {
+		return tareasSinAsignar;
 	}
-
-	public int[] getPastelerosAsignados() {
-		return PastelerosAsignados;
+	public void setTareasSinAsignar(ArrayList<Integer> tareasSinAsignar) {
+		this.tareasSinAsignar = tareasSinAsignar;
 	}
-
-	public void setPastelerosAsignados(int[] pastelerosAsignados) {
-		PastelerosAsignados = pastelerosAsignados;
+	public int[][] getCostes() {
+		return costes;
 	}
-
-	public int[][] getTablaBeneficios() {
-		return TablaBeneficios;
+	public void setCostes(int[][] costes) {
+		this.costes = costes;
 	}
-
-	public void setTablaBenecifios(int[][] tablaBeneficios) {
-		TablaBeneficios = tablaBeneficios;
+	public int getCosteReal() {
+		return costeReal;
 	}
-
-	public Nodo(int beneficio, int beneficioO, int paso, int[] pastelerosAsignados, int[][] tablaBeneficios) {
-		super();
-		this.beneficio = beneficio;
-		this.beneficioO = beneficioO;
-		this.paso = paso;
-		PastelerosAsignados = pastelerosAsignados;
-		TablaBeneficios = tablaBeneficios;
+	public void setCosteReal(int costeReal) {
+		this.costeReal = costeReal;
 	}
-
+	private ArrayList<Integer> complecciones(Nodo nodo){
+		return null;
+	}
 }
