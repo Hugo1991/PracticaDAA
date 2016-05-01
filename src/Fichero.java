@@ -13,12 +13,12 @@ public class Fichero {
 	private static int[][] pastelero_pastel;
 	private static int[] pedido;
 
-	public static void leerFichero(String ficheroEntrada) {
-		FileReader f;
-		try {
+	public static void leerFichero(String ficheroEntrada) throws FileNotFoundException,IOException {
+			FileReader f;
 			f = new FileReader(ficheroEntrada);
 			BufferedReader b = new BufferedReader(f);
-			String linea = b.readLine();
+			String linea;
+			linea = b.readLine();
 			String[] datosNum = linea.split(" ");
 			numPasteleros = Integer.parseInt(datosNum[0]);
 			numPasteles = Integer.parseInt(datosNum[1]);
@@ -39,13 +39,9 @@ public class Fichero {
 			for (int i = 0; i < numPasteleros; i++)
 				for (int j = 0; j < numPasteles; j++)
 					coste[i][j] = pastelero_pastel[i][pedido[j] - 1];
+
 			b.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("El fichero no existe");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 	}
 
