@@ -18,7 +18,7 @@ public class Pasteleria {
 			numPasteles = Fichero.getNumPasteles();
 			pastelero_pastel = Fichero.getPastelero_pastel();
 			pedido = Fichero.getPedido();
-			RamificaYPoda.RamificaYPoda(new Nodo(pastelero_pastel));
+			RamificaYPoda.RamificaYPoda(new Nodo());
 			if (args.length == 1) {
 				System.out.println(numPasteleros);
 				System.out.println(numPasteles);

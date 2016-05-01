@@ -1,58 +1,79 @@
 import java.util.ArrayList;
 
 public class Nodo implements Comparable {
+	private ArrayList<Integer> pastelerosSinAsignar;
 	private ArrayList<Integer> pastelerosAsignados;
-	private int cotaInferior;
-	private ArrayList<Integer> tareasSinAsignar;
-	private int beneficioActual; 
-	private int[][] costes;
-	public Nodo(){}
-	
-	public Nodo(int[][] costes) {
-		this.costes = costes;
+	private int beneficioActual;
+	private int[][] matrizBeneficios;
+	private int ultimoPastelero;
+
+	public Nodo() {
 	}
 
-	public Nodo(ArrayList<Integer> pastelerosAsignados, int cotaInferior, ArrayList<Integer> tareasSinAsignar,
-			int[][] costes, int costeReal) {
+	public Nodo(ArrayList<Integer> pastelerosSinAsignar, ArrayList<Integer> pastelerosAsignados, int beneficioActual,
+			int[][] matrizBeneficios, int ultimoPastelero) {
+		super();
+		this.pastelerosSinAsignar = pastelerosSinAsignar;
 		this.pastelerosAsignados = pastelerosAsignados;
-		this.cotaInferior = cotaInferior;
-		this.tareasSinAsignar = tareasSinAsignar;
-		this.beneficioActual = costeReal;
+		this.beneficioActual = beneficioActual;
+		this.matrizBeneficios = matrizBeneficios;
+		this.ultimoPastelero = ultimoPastelero;
 	}
 
+	public ArrayList<Integer> getPastelerosSinAsignar() {
+		return pastelerosSinAsignar;
+	}
+
+	public void setPastelerosSinAsignar(ArrayList<Integer> pastelerosSinAsignar) {
+		this.pastelerosSinAsignar = pastelerosSinAsignar;
+	}
 
 	public ArrayList<Integer> getPastelerosAsignados() {
 		return pastelerosAsignados;
 	}
+
 	public void setPastelerosAsignados(ArrayList<Integer> pastelerosAsignados) {
 		this.pastelerosAsignados = pastelerosAsignados;
 	}
-	public int getCotaInferior() {
-		return cotaInferior;
-	}
-	public void setCotaInferior(int cotaInferior) {
-		this.cotaInferior = cotaInferior;
-	}
-	public ArrayList<Integer> getTareasSinAsignar() {
-		return tareasSinAsignar;
-	}
-	public void setTareasSinAsignar(ArrayList<Integer> tareasSinAsignar) {
-		this.tareasSinAsignar = tareasSinAsignar;
-	}
+
 	public int getBeneficioActual() {
+		//TODO por hacer funcion
 		return beneficioActual;
 	}
+
 	public void setBeneficioActual(int beneficioActual) {
 		this.beneficioActual = beneficioActual;
 	}
-	public int[][] getCostes() {
-		return costes;
+
+	public int[][] getMatrizBeneficios() {
+		return matrizBeneficios;
 	}
-	public void setCostes(int[][] costes) {
-		this.costes = costes;
+
+	public void setMatrizBeneficios(int[][] matrizBeneficios) {
+		this.matrizBeneficios = matrizBeneficios;
 	}
-	private ArrayList<Integer> complecciones(Nodo nodo) {
-		return null;
+
+	public int getUltimoPastelero() {
+		return ultimoPastelero;
+	}
+
+	public void setUltimoPastelero(int ultimoPastelero) {
+		this.ultimoPastelero = ultimoPastelero;
+	}
+
+	private ArrayList<Nodo> complecciones(Nodo nodo) {
+		ArrayList<Nodo> hijos = new ArrayList<>();
+		for(Integer pastelero:getPastelerosSinAsignar()){
+			Nodo hijo=new Nodo();
+			int pedido=getUltimoPastelero()+1;
+			hijo.copiaNodo(nodo);
+			hijo.setBeneficioActual(getBeneficioActual());
+			hijo.setUltimoPastelero(pedido);
+			hijo.getPastelerosAsignados().set(pedido-1, pastelero);
+			hijo.getPastelerosSinAsignar().remove(pastelero);
+			hijos.add(hijo);
+		}
+		return hijos;
 	}
 
 	/**
@@ -61,10 +82,7 @@ public class Nodo implements Comparable {
 	 * @param n
 	 */
 	public void copiaNodo(Nodo n) {
-		this.setTareasSinAsignar(n.getTareasSinAsignar());
-		this.setPastelerosAsignados(n.getPastelerosAsignados());
-		this.setBeneficioActual(n.getBeneficioActual());
-		this.setCotaInferior(n.getCotaInferior());
+		
 	}
 
 	/**
