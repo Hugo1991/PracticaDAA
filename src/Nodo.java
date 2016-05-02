@@ -4,20 +4,34 @@ public class Nodo implements Comparable {
 	private ArrayList<Integer> pastelerosSinAsignar;
 	private ArrayList<Integer> pastelerosAsignados;
 	private int beneficioActual;
-	private int[][] matrizBeneficios;
+	private static int[][] matrizBeneficios;
 	private int ultimoPastelero;
 
 	public Nodo() {
+		this.pastelerosAsignados = new ArrayList<Integer>();
+		this.pastelerosSinAsignar = new ArrayList<Integer>();
 	}
 
-	public Nodo(ArrayList<Integer> pastelerosSinAsignar, ArrayList<Integer> pastelerosAsignados, int beneficioActual,
-			int[][] matrizBeneficios, int ultimoPastelero) {
+	public Nodo(int[][] puntuacionPasteles) {
 		super();
-		this.pastelerosSinAsignar = pastelerosSinAsignar;
-		this.pastelerosAsignados = pastelerosAsignados;
-		this.beneficioActual = beneficioActual;
-		this.matrizBeneficios = matrizBeneficios;
-		this.ultimoPastelero = ultimoPastelero;
+		matrizBeneficios = puntuacionPasteles;
+		this.pastelerosAsignados = new ArrayList<Integer>();
+		this.pastelerosSinAsignar = new ArrayList<Integer>();
+		inicializarAsignados();
+		inicializarNoAsignados();
+		this.ultimoPastelero = 0;
+	}
+
+	private void inicializarAsignados() {
+		for (int p : matrizBeneficios[0]) {
+			pastelerosAsignados.add(-1);
+		}
+	}
+
+	private void inicializarNoAsignados() {
+		for (int i = 0; i < matrizBeneficios[0].length; i++) {
+			pastelerosSinAsignar.add(i);
+		}
 	}
 
 	public ArrayList<Integer> getPastelerosSinAsignar() {
@@ -25,7 +39,7 @@ public class Nodo implements Comparable {
 	}
 
 	public void setPastelerosSinAsignar(ArrayList<Integer> pastelerosSinAsignar) {
-		this.pastelerosSinAsignar = pastelerosSinAsignar;
+		this.pastelerosSinAsignar = (ArrayList<Integer>) pastelerosSinAsignar;
 	}
 
 	public ArrayList<Integer> getPastelerosAsignados() {
@@ -33,11 +47,10 @@ public class Nodo implements Comparable {
 	}
 
 	public void setPastelerosAsignados(ArrayList<Integer> pastelerosAsignados) {
-		this.pastelerosAsignados = pastelerosAsignados;
+		this.pastelerosAsignados = (ArrayList<Integer>) pastelerosAsignados;
 	}
 
 	public int getBeneficioActual() {
-		//TODO por hacer funcion
 		return beneficioActual;
 	}
 
@@ -45,7 +58,7 @@ public class Nodo implements Comparable {
 		this.beneficioActual = beneficioActual;
 	}
 
-	public int[][] getMatrizBeneficios() {
+	public static int[][] getMatrizBeneficios() {
 		return matrizBeneficios;
 	}
 
@@ -61,16 +74,16 @@ public class Nodo implements Comparable {
 		this.ultimoPastelero = ultimoPastelero;
 	}
 
-	private ArrayList<Nodo> complecciones(Nodo nodo) {
+	public ArrayList<Nodo> complecciones(Nodo n) {
 		ArrayList<Nodo> hijos = new ArrayList<>();
-		for(Integer pastelero:getPastelerosSinAsignar()){
-			Nodo hijo=new Nodo();
-			int pedido=getUltimoPastelero()+1;
-			hijo.copiaNodo(nodo);
-			hijo.setBeneficioActual(getBeneficioActual());
-			hijo.setUltimoPastelero(pedido);
-			hijo.getPastelerosAsignados().set(pedido-1, pastelero);
-			hijo.getPastelerosSinAsignar().remove(pastelero);
+		Nodo hijo = new Nodo();
+		for (int pastelero : pastelerosSinAsignar) {
+			hijo = Nodo.copia(n);
+			int numPedido = hijo.getUltimoPastelero() + 1;
+			hijo.getPastelerosSinAsignar().remove((Integer) pastelero);
+			hijo.setUltimoPastelero(numPedido);
+			hijo.getPastelerosAsignados().set(numPedido - 1, pastelero);
+			hijo.generarBeneficioEstimado();
 			hijos.add(hijo);
 		}
 		return hijos;
@@ -81,8 +94,13 @@ public class Nodo implements Comparable {
 	 * 
 	 * @param n
 	 */
-	public void copiaNodo(Nodo n) {
-		
+	public static Nodo copia(Nodo n) {
+		Nodo copia = new Nodo();
+		copia.beneficioActual = n.getBeneficioActual();
+		copia.pastelerosAsignados = (ArrayList<Integer>) n.getPastelerosAsignados().clone();
+		copia.ultimoPastelero = n.getUltimoPastelero();
+		copia.pastelerosSinAsignar = (ArrayList<Integer>) n.getPastelerosSinAsignar().clone();
+		return copia;
 	}
 
 	/**
@@ -100,6 +118,28 @@ public class Nodo implements Comparable {
 		} else {
 			return 0;
 		}
+	}
+
+	public boolean estaTerminado() {
+		return pastelerosSinAsignar.isEmpty();
+	}
+
+	private void generarBeneficioEstimado() {
+		int beneficio = 0;
+		int contador = 0;
+		for (int pasteleroElegido : pastelerosAsignados) {
+			if (pasteleroElegido != -1) {
+				beneficio = beneficio + matrizBeneficios[contador][pasteleroElegido];
+			} else {
+				int beneficioMayor = 0;
+				for (int i = 0; i < matrizBeneficios.length; i++) {
+					beneficioMayor = Math.max(beneficioMayor, matrizBeneficios[contador][i]);
+				}
+				beneficio = beneficio + beneficioMayor;
+			}
+			contador++;
+		}
+		this.setBeneficioActual(beneficio);
 	}
 
 }
