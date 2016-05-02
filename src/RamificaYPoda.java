@@ -10,7 +10,7 @@ public class RamificaYPoda {
 			Nodo aux=nodosVivos.poll();
 			
 			//if ya no puede tener mas hijos aux
-				//if esValido cotaSuperior<beneficioactual+beneficioAux
+				//if esValido compareto cotaSuperior<beneficioactual+beneficioAux
 				//cotaSuperior=beneficio
 			//else
 				//arrayList hijos=complecciones(aux)
