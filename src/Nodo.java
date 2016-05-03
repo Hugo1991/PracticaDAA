@@ -1,17 +1,32 @@
 import java.util.ArrayList;
 
-public class Nodo implements Comparable {
+/**
+ * 
+ * @author Ignacio de Lucas Noguero
+ * @author Hugo Fernandez Visier
+ *
+ */
+public class Nodo implements Comparable<Object> {
 	private ArrayList<Integer> pastelerosSinAsignar;
 	private ArrayList<Integer> pastelerosAsignados;
 	private int beneficioActual;
 	private static int[][] matrizBeneficios;
 	private int ultimoPastelero;
 
+	/**
+	 * Constructor padre
+	 */
 	public Nodo() {
 		this.pastelerosAsignados = new ArrayList<Integer>();
 		this.pastelerosSinAsignar = new ArrayList<Integer>();
 	}
 
+	/**
+	 * Constructor pasandole la matriz de beneficios pastelero_pastel
+	 * 
+	 * @param puntuacionPasteles
+	 *            matriz beneficio pastelero_pastel
+	 */
 	public Nodo(int[][] puntuacionPasteles) {
 		super();
 		matrizBeneficios = puntuacionPasteles;
@@ -22,18 +37,7 @@ public class Nodo implements Comparable {
 		this.ultimoPastelero = 0;
 	}
 
-	private void inicializarAsignados() {
-		for (int p : matrizBeneficios[0]) {
-			pastelerosAsignados.add(-1);
-		}
-	}
-
-	private void inicializarNoAsignados() {
-		for (int i = 0; i < matrizBeneficios[0].length; i++) {
-			pastelerosSinAsignar.add(i);
-		}
-	}
-
+	// METODOS GET Y SET
 	public ArrayList<Integer> getPastelerosSinAsignar() {
 		return pastelerosSinAsignar;
 	}
@@ -74,6 +78,34 @@ public class Nodo implements Comparable {
 		this.ultimoPastelero = ultimoPastelero;
 	}
 
+	// METODOS DE NODO
+
+	/**
+	 * Inicializa el arrayList pasteleros asignados
+	 */
+	private void inicializarAsignados() {
+		for (int p : matrizBeneficios[0]) {
+			pastelerosAsignados.add(-1);
+		}
+	}
+
+	/**
+	 * Inicializa el arrayList los pasteleros no asignados
+	 */
+	private void inicializarNoAsignados() {
+		for (int i = 0; i < matrizBeneficios[0].length; i++) {
+			pastelerosSinAsignar.add(i);
+		}
+	}
+
+	/**
+	 * Metodo encargado de crear los hijos del nodo dado que se le pasa a la
+	 * funcion
+	 * 
+	 * @param n
+	 *            objeto tipo Nodo
+	 * @return ArrayList de nodos hijos
+	 */
 	public ArrayList<Nodo> complecciones(Nodo n) {
 		ArrayList<Nodo> hijos = new ArrayList<>();
 		Nodo hijo = new Nodo();
@@ -93,6 +125,7 @@ public class Nodo implements Comparable {
 	 * funcion que se encarga de copiar un nodo en otro
 	 * 
 	 * @param n
+	 *            objeto tipo Nodo
 	 */
 	public static Nodo copia(Nodo n) {
 		Nodo copia = new Nodo();
@@ -101,6 +134,37 @@ public class Nodo implements Comparable {
 		copia.ultimoPastelero = n.getUltimoPastelero();
 		copia.pastelerosSinAsignar = (ArrayList<Integer>) n.getPastelerosSinAsignar().clone();
 		return copia;
+	}
+
+	/**
+	 * Devuelve true si el arrayList de pasteleros esta vacia.
+	 * 
+	 * @return booleano
+	 */
+	public boolean estaTerminado() {
+		return pastelerosSinAsignar.isEmpty();
+	}
+
+	/**
+	 * Este metodo se encarga de generar el beneficio maximo de cada pastelero y
+	 * sumarlo al beneficio actual
+	 */
+	private void generarBeneficioEstimado() {
+		int beneficio = 0;
+		int contador = 0;
+		for (int pasteleroElegido : pastelerosAsignados) {
+			if (pasteleroElegido != -1) {
+				beneficio += matrizBeneficios[contador][pasteleroElegido];
+			} else {
+				int beneficioMayor = 0;
+				for (int i = 0; i < matrizBeneficios.length; i++) {
+					beneficioMayor = Math.max(beneficioMayor, matrizBeneficios[contador][i]);
+				}
+				beneficio += beneficioMayor;
+			}
+			contador++;
+		}
+		this.setBeneficioActual(beneficio);
 	}
 
 	/**
@@ -118,28 +182,6 @@ public class Nodo implements Comparable {
 		} else {
 			return 0;
 		}
-	}
-
-	public boolean estaTerminado() {
-		return pastelerosSinAsignar.isEmpty();
-	}
-
-	private void generarBeneficioEstimado() {
-		int beneficio = 0;
-		int contador = 0;
-		for (int pasteleroElegido : pastelerosAsignados) {
-			if (pasteleroElegido != -1) {
-				beneficio = beneficio + matrizBeneficios[contador][pasteleroElegido];
-			} else {
-				int beneficioMayor = 0;
-				for (int i = 0; i < matrizBeneficios.length; i++) {
-					beneficioMayor = Math.max(beneficioMayor, matrizBeneficios[contador][i]);
-				}
-				beneficio = beneficio + beneficioMayor;
-			}
-			contador++;
-		}
-		this.setBeneficioActual(beneficio);
 	}
 
 }

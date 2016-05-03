@@ -7,12 +7,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 
+ * @author Ignacio de Lucas Noguero
+ * @author Hugo Fernandez Visier
+ *
+ */
 public class Fichero {
 	private static int numPasteleros;
 	private static int numPasteles;
 	private static int[][] pastelero_pastel;
 	private static int[] pedido;
 
+	/**
+	 * Este metodo es el encargado de leer un fichero de texto y almacenarlo en
+	 * las variables de clase para poderlas utilizar mas adelante en nuestro
+	 * programa
+	 * 
+	 * @param ficheroEntrada
+	 *            el nombre del fichero de entrada
+	 * @throws FileNotFoundException
+	 *             si el fichero no existe lanza una excepcion
+	 * @throws IOException
+	 *             Excepcion general en fallo de lectura de fichero
+	 */
 	public static void leerFichero(String ficheroEntrada) throws FileNotFoundException, IOException {
 		FileReader f;
 		f = new FileReader(ficheroEntrada);
@@ -41,6 +59,17 @@ public class Fichero {
 		b.close();
 	}
 
+	/**
+	 * metodo encargado de escribir la solucion que le pasamos al fichero de
+	 * salida. este metodo comprueba que el fichero no exista anteriormente, si
+	 * ya existe, mostrara un mensaje de error
+	 * 
+	 * @param solucion
+	 *            el objeto tipo Nodo para escribir los pasteleros asignados y
+	 *            el beneficio actual
+	 * @param nombreFicheroSalida
+	 *            el nombre del fichero de salida
+	 */
 	public static void escribirFichero(Nodo solucion, String nombreFicheroSalida) {
 		try {
 			if (!ficheroExiste(nombreFicheroSalida)) {
@@ -59,9 +88,16 @@ public class Fichero {
 		}
 	}
 
+	/**
+	 * Si el fichero existe, devuelve true
+	 * @param nombreFichero el nombre de un fichero
+	 * @return booleano
+	 */
 	public static boolean ficheroExiste(String nombreFichero) {
 		return new File(nombreFichero).exists();
 	}
+
+	// METODOS GET de fichero
 
 	public static int getNumPasteleros() {
 		return numPasteleros;
