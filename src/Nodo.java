@@ -157,10 +157,17 @@ public class Nodo implements Comparable<Object> {
 				beneficio += matrizBeneficios[contador][pasteleroElegido];
 			} else {
 				int beneficioMayor = 0;
+				int asignar=0;
 				for (int i = 0; i < matrizBeneficios.length; i++) {
-					beneficioMayor = Math.max(beneficioMayor, matrizBeneficios[contador][i]);
+					if(getPastelerosSinAsignar().contains(i) && beneficioMayor<=matrizBeneficios[contador][i]){
+						asignar=i;
+						beneficioMayor = matrizBeneficios[contador][i];
+					}
 				}
+				
 				beneficio += beneficioMayor;
+				getPastelerosAsignados().set((Integer)contador, asignar);
+				getPastelerosSinAsignar().remove((Integer) asignar);
 			}
 			contador++;
 		}
