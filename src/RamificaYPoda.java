@@ -38,11 +38,13 @@ public class RamificaYPoda {
 	 */
 	public static Nodo CalcularSolucion(Nodo nodo) {
 		PriorityQueue<Nodo> colaNodoVivos = new PriorityQueue<>();
+		long start = System.currentTimeMillis();
 		Nodo nodoCota = CalcularCota();
 		int cotaInferior = nodoCota.getBeneficioActual();
 		nodo.setBeneficioActual(cotaInferior);
 		colaNodoVivos.add(nodo);
 		// Bucle de Ramifica y poda
+		  
 		while (!colaNodoVivos.isEmpty()) {
 			Nodo candidato = colaNodoVivos.poll();
 			if (candidato.estaTerminado()) {
@@ -59,6 +61,9 @@ public class RamificaYPoda {
 				}
 			}
 		}
+		  long end = System.currentTimeMillis();
+		  long res = end - start;
+		  System.out.println("milisegundos: "+res);
 		return nodoCota;
 	}
 }
